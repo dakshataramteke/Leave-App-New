@@ -17,12 +17,12 @@ app.get("/", (req, res) => {
 app.get("/allpending", async (req, res) => {
     try {
         const sql = "SELECT * FROM leave_request";
-        const images = "SELECT * FROM images_data";
-        connection.query(selectImageDataQuery, (imageDataErr, imageDataResult) => {
-            if (imageDataErr) {
-                console.error('Error executing image_data select query:', imageDataErr);
-                return res.status(500).send('Error retrieving image data');
-            }})
+        // const images = "SELECT * FROM images_data";
+        // connection.query(selectImageDataQuery, (imageDataErr, imageDataResult) => {
+        //     if (imageDataErr) {
+        //         console.error('Error executing image_data select query:', imageDataErr);
+        //         return res.status(500).send('Error retrieving image data');
+        //     }})
         const [result] = await connection.query(sql);
         // console.log(result);
         res.send(result);

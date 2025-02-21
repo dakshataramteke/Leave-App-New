@@ -12,7 +12,7 @@ const DateFilterPopup = ({
   endDate,
   setEndDate,
   onClose,
-  resetDates, // New prop
+  resetDates, 
 }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">

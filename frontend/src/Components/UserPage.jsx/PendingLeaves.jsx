@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
 import { useMediaQuery } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import './User.css';
+import "./User.css";
 
 const DateFilterPopup = ({
   startDate,
@@ -84,19 +84,19 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/allpending'); 
+      const response = await fetch("http://localhost:5000/allpending");
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const result = await response.json();
       setLeaves(result); // Set the fetched data to state
     } catch (error) {
       setError(error.message); // Set error message if fetch fails
-    } 
+    }
   };
 
   useEffect(() => {
-    fetchData(); 
+    fetchData();
     if (leaves.length > 0 && !isInitialized) {
       setSelectedLeave(leaves[0]);
       setIsInitialized(true);
@@ -114,24 +114,30 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
     async (status, comments) => {
       if (selectedLeave) {
         try {
-          const response = await fetch(`http://localhost:5000/approved/${selectedLeave.ID}`, {
-            method: 'get',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ status, comments }),
-          });
+          const response = await fetch(
+            `http://localhost:5000/approved/${selectedLeave.ID}`,
+            {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ status, comments }),
+            }
+          );
 
           if (response.ok) {
             console.warn("Response is successfully approved" + response.status);
-          }
-          else{
-            console.warn("Response is not successfully approved" + response.status);
+          } else {
+            console.warn(
+              "Response is not successfully approved" + response.status
+            );
           }
 
           // Update local state after successful update
           const updatedLeaves = leaves.map((leave) =>
-            leave.ID === selectedLeave.ID ? { ...leave, status, comments } : leave
+            leave.ID === selectedLeave.ID
+              ? { ...leave, status, comments }
+              : leave
           );
           setLeaves(updatedLeaves);
           if (status === "Approved") {
@@ -158,22 +164,21 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
 
   const handleApprove = () => {
     updateLeaveStatus("Approved", comments);
-    setIsPopupOpen(false); 
-    setComments(""); 
+    setIsPopupOpen(false);
+    setComments("");
   };
 
   const handleReject = () => {
     updateLeaveStatus("Rejected", comments);
-    setIsPopupOpen(false); 
-    setComments(""); 
+    setIsPopupOpen(false);
+    setComments("");
   };
 
   const filteredLeaves = leaves.filter((leave) => {
     const timeCondition =
       timeFilter === "All Time" ||
       (timeFilter === "Today" &&
-        new Date(leave.sdate).toDateString() ===
-          new Date().toDateString()) ||
+        new Date(leave.sdate).toDateString() === new Date().toDateString()) ||
       (timeFilter === "This Month" &&
         new Date(leave.sdate).getMonth() === new Date().getMonth());
     const statusCondition =
@@ -190,9 +195,9 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
         leaveStartDate >= startDate &&
         leaveEndDate <= endDate);
 
-    const nameCondition = 
-      typeof leave.username === 'string' && 
-      typeof searchName === 'string' && 
+    const nameCondition =
+      typeof leave.username === "string" &&
+      typeof searchName === "string" &&
       leave.username.toLowerCase().includes(searchName.toLowerCase());
 
     return timeCondition && statusCondition && dateCondition && nameCondition;
@@ -253,8 +258,7 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
                   {leave.totalday}
                 </p>
                 <p className="text-sm text-gray-600">
-                  <span className="font-medium">Start Time:</span>{" "}
-                  {leave.sdate}
+                  <span className="font-medium">Start Time:</span> {leave.sdate}
                 </p>
                 <p className="text-sm text-gray-600">
                   <span className="font-medium">End Time:</span> {leave.edate}
@@ -309,9 +313,11 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
                             {selectedLeave.username.split(" ")[0][0]}
                             {selectedLeave.username.split(" ")[1][0]}
                           </div>
-                          <p className="font-semibold">{selectedLeave.username}</p>
+                          <p className="font-semibold">
+                            {selectedLeave.username}
+                          </p>
                           <p className="text-sm text-gray-400">
-                            Submitted: {selectedLeave.initiated || " "}
+                            Submitted: {selectedLeave.submitted_at || " "}
                           </p>
                         </div>
                         <span
@@ -362,7 +368,10 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
                           <textarea
                             name="comments"
                             rows={5}
-                            style={{ border: "2px solid grey", borderRadius:'4px' }}
+                            style={{
+                              border: "2px solid grey",
+                              borderRadius: "4px",
+                            }}
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
                           ></textarea>
@@ -440,7 +449,11 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
                     <textarea
                       name="comments"
                       rows={5}
-                      style={{border: "2px solid grey", borderRadius:'4px', marginBottom: "8px" }}
+                      style={{
+                        border: "2px solid grey",
+                        borderRadius: "4px",
+                        marginBottom: "8px",
+                      }}
                       value={comments}
                       onChange={(e) => setComments(e.target.value)}
                     ></textarea>
