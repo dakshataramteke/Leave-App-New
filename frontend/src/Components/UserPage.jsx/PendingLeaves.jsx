@@ -268,7 +268,7 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
                     <div className="ml-2 text-sm text-gray-600">
                       <p>{leave.username}</p>
                       <p className="text-xs text-gray-400">
-                        Initiated: {leave.initiated || ""}
+                        Initiated: {leave.submitted_at || ""}
                       </p>
                     </div>
                   </div>
