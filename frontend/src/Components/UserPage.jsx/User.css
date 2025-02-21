@@ -1,0 +1,29 @@
+.img_notfound{
+    background-size: contain !important;
+    height: 400px;
+    width: 350px;
+    /* margin:0 auto !important; */
+}
+
+  @media(max-width:420px){
+    .pending_leaves input[type="text"],
+    .approved_leaves input[type="text"],
+    .rejected_leaves input[type="text"]{
+        width:65% !important;
+    }    
+}
+@media(max-width:767px){
+    .pending_leaves input[type="text"],
+    .approved_leaves input[type="text"],
+    .rejected_leaves input[type="text"]{
+        width:70%;
+    }    
+}
+.pending_leaves input[type="text"]{
+    width:70%;
+}
+.pending_leaves input[type="text"]:focus,
+.rejected_leaves input[type="text"]:focus,
+.approved_leaves input[type="text"]:focus{
+    border:2px solid #3B82F6 !important;
+}

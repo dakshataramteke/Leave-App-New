@@ -1,0 +1,23 @@
+.closed_menu .css-1umw9bq-MuiSvgIcon-root{
+    fill: oklch(0.42 0.19 258.88) !important;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+  
+::-webkit-scrollbar-thumb {
+  background-color: rgb(200, 196, 196); 
+  border-radius: 10px; 
+}
+  
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+  
+/* .pending_Cards{
+    z-index: 9;
+    position: relative;
+    margin:0 5px 0 5px ;
+} */
