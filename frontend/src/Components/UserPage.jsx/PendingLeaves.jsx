@@ -123,10 +123,10 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
           });
 
           if (response.ok) {
-            console.warn("Response is successfullyapproved" + response.status);
+            console.warn("Response is successfully approved" + response.status);
           }
           else{
-            console.warn("Response is not successfullyapproved" + response.status);
+            console.warn("Response is not successfully approved" + response.status);
           }
 
           // Update local state after successful update
