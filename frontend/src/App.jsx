@@ -1,9 +1,9 @@
 import './App.css';
 import AdminPage from './Components/AdminPage';
-import AllApproved from './Components/UserPage.jsx/AllApproved';
-import Rejected from './Components/UserPage.jsx/Rejected';
+import AllApproved from './Components/UserPage/AllApproved';
+import Rejected from './Components/UserPage/Rejected';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
-import PendingLeaves from './Components/UserPage.jsx/PendingLeaves';
+import PendingLeaves from './Components/UserPage/PendingLeaves';
 import { useState } from 'react';
 
 function App() {

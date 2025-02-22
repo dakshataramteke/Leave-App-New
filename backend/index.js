@@ -15,7 +15,7 @@ app.use(express.json());
 // });
 
 app.get("/allpending", async (req, res) => {
-    // console.log("Data Received ");
+    console.log("Data Received ");
    try{
         const sql = "SELECT * FROM leave_request";
         console.log(req);
@@ -28,10 +28,31 @@ app.get("/allpending", async (req, res) => {
     }
 });
 
-app.post('/approved', (req, res) => {
-  console.log(req.body);
+app.get('/approved', (req, res) => {
+    console.log("GET request received at /approved");
+    console.log("Request body:", req.body);
+    res.json(req.body);
 });
 
+app.post('/approved', (req, res) => {
+    console.log("POST request received at /approved");
+    console.log("Request body:", req.body);
+    // Here you would typically handle the approval logic
+    // res.send("POST request to /approved received");
+});
+
+
+app.get('/rejected', (req, res) => {
+    console.log("GET request received at rejected");
+    console.log("Request body:", req.body);
+    res.json(req.body);
+});
+app.post("/rejected",(req,res)=>{
+    console.log("POST request received at /rejected");
+    console.log("Request body:", req.body);
+    // Here you would typically handle the approval logic
+    // res.send("POST request to /approved received");
+})
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
