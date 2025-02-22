@@ -10,10 +10,6 @@ app.use(cors());
 app.use(express.json());
 
 
-// app.get("/", (req, res) => {
-//     res.send("<h1>Admin Page</h1><p>For all the data use <a href='/allpending'>/allpending</a></p>");
-// });
-
 app.get("/allpending", async (req, res) => {
     console.log("Data Received ");
    try{
@@ -38,7 +34,7 @@ app.post('/approved', (req, res) => {
     console.log("POST request received at /approved");
     console.log("Request body:", req.body);
     // Here you would typically handle the approval logic
-    // res.send("POST request to /approved received");
+    res.send("POST request to /approved received");
 });
 
 
@@ -51,7 +47,7 @@ app.post("/rejected",(req,res)=>{
     console.log("POST request received at /rejected");
     console.log("Request body:", req.body);
     // Here you would typically handle the approval logic
-    // res.send("POST request to /approved received");
+    res.send("POST request to /approved received");
 })
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

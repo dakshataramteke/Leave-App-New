@@ -17,7 +17,6 @@ function App() {
         <Route path='/allpending' element={<PendingLeaves setApprovedLeaves={setApprovedLeaves} setRejectedLeaves={setRejectedLeaves} />} />
         <Route path='/allapproved' element={<AllApproved approvedLeaves={approvedLeaves} />} />
         <Route path='/allrejected' element={<Rejected rejectedLeaves={rejectedLeaves} />} />
-      
       </Routes>
     </BrowserRouter>
   );
