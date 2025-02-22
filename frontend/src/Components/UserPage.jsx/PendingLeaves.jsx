@@ -115,9 +115,9 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
       if (selectedLeave) {
         try {
           const response = await fetch(
-            `http://localhost:5000/approved/${selectedLeave.ID}`,
+            `http://localhost:5000/approved`,
             {
-              method: "get",
+              method: "post",
               headers: {
                 "Content-Type": "application/json",
               },
