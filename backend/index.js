@@ -5,18 +5,22 @@ const connection = require('./models/db');
 const cors = require('cors');
 const path = require('path');
 const { console } = require("inspector");
-const session = require("express-session"); // Import express-session
+const session = require("express-session"); 
 
 app.use(cors());
 app.use(express.json());
-// Set up session middleware
 app.use(session({
-    secret: 'leave app', // Change this to a strong secret
+    secret: 'leave app', 
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using HTTPS
+    cookie: { secure: false } 
 }));
 
+/*
+
+=== All Pending Data ===     
+
+*/
 app.get("/allpending", async (req, res) => {
     console.log("Data Received ");
    try{
@@ -31,6 +35,7 @@ app.get("/allpending", async (req, res) => {
     }
 });
 
+
 app.get('/approved', (req, res) => {
     console.log("GET request received at /approved");
     console.log("Request body:", req.body);
@@ -40,7 +45,6 @@ app.get('/approved', (req, res) => {
 app.post('/approved', (req, res) => {
     console.log("POST request received at /approved");
     console.log("Request body:", req.body);
-    // Here you would typically handle the approval logic
     res.send(`Logged in as ${req.session}`);
 });
 
@@ -53,7 +57,6 @@ app.get('/rejected', (req, res) => {
 app.post("/rejected",(req,res)=>{
     console.log("POST request received at /rejected");
     console.log("Request body:", req.body);
-    // Here you would typically handle the approval logic
     res.json(`Logged in as ${req.session}`);
 })
 app.listen(port, () => {
