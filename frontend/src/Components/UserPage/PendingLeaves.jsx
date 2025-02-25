@@ -93,7 +93,7 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
       const result = await response.json();
       setLeaves(result); // Set the fetched data to state
     } catch (error) {
-      setError(error.message); 
+      setError(error.message);
       console.log("The Problem is :" + error.message);
     }
   };
@@ -130,29 +130,28 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
             const updatedLeave = { ...selectedLeave, status, comments };
             if (status === "Approved") {
               setApprovedLeaves((prev) => [...prev, updatedLeave]);
+              localStorage.setItem('approvedLeaves', JSON.stringify([...JSON.parse(localStorage.getItem('approvedLeaves') || '[]'), updatedLeave]));
               toast.success("Leave Approved Successfully!");
-              // navigate('/allapproved'); // Navigate to AllApproved page after approval
             } else {
               setRejectedLeaves((prev) => [...prev, updatedLeave]);
+              localStorage.setItem('rejectedLeaves', JSON.stringify([...JSON.parse(localStorage.getItem('rejectedLeaves') || '[]'), updatedLeave]));
               toast.success("Leave Rejected Successfully!");
             }
+
+            // Remove the leave from pending leaves
+            setLeaves((prevLeaves) =>
+              prevLeaves.filter((leave) => leave.ID !== selectedLeave.ID)
+            );
+            setSelectedLeave(updatedLeave); // Update selectedLeave to reflect the new status
           } else {
             console.warn("Response is not successfully processed" + response.status);
           }
-
-          // Update local state after successful update
-          const updatedLeaves = leaves.map((leave) =>
-            leave.ID === selectedLeave.ID
-              ? { ...leave, status, comments }
-              : leave
-          );
-          setLeaves(updatedLeaves);
         } catch (error) {
           setError(error.message);
         }
       }
     },
-    [selectedLeave, leaves, setApprovedLeaves, setRejectedLeaves, navigate]
+    [selectedLeave, setApprovedLeaves, setRejectedLeaves]
   );
 
   const handleApprove = () => {
@@ -230,10 +229,10 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
 
           <div className="grid grid-cols-1 gap-4 justify-items-center md:mb-14 mb-13 overflow-y-auto max-h-[calc(100vh)]">
             {filteredLeaves.map((leave, index) => (
-              <div
+ <div
                 key={index}
                 className="w-full sm:w-full p-4 relative bg-white rounded-xl me-3 shadow-md cursor-pointer pending_Cards"
-                onClick={() => handleCardClick (leave)}
+                onClick={() => handleCardClick(leave)}
                 style={{
                   borderRadius: "0.5rem",
                   borderLeft: `4px solid ${
@@ -346,13 +345,10 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
                             {selectedLeave.edate}
                           </p>
                           <p>
-                            <span className="font-semibold">Leave Type:</span>{" "}
-                            {selectedLeave.leave_type}
+                            <span className="font-semibold">Leave Type:</span> {selectedLeave.leave_type}
                           </p>
                           <p>
-                            <span className="font-semibold">
-                              Reason for Leave:
-                            </span>{" "}
+                            <span className="font-semibold">Reason for Leave:</span>{" "}
                             {selectedLeave.reason}
                           </p>
                           <label htmlFor="comments">

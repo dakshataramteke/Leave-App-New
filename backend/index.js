@@ -47,7 +47,7 @@ app.post("/rejected",(req,res)=>{
     console.log("POST request received at /rejected");
     console.log("Request body:", req.body);
     // Here you would typically handle the approval logic
-    res.send("POST request to /approved received");
+    res.send("POST request to /rejected received");
 })
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
