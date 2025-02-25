@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import DownNavbar from "./DownNavbar";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,7 +18,6 @@ const DateFilterPopup = ({
     <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-5 md:mx-0">
         <h2 className="text-lg font-semibold mb-4">Select Date Range</h2>
-
         <div className="flex flex-col space-y-4">
           <DatePicker
             selected={startDate}
@@ -40,7 +39,6 @@ const DateFilterPopup = ({
             className="border border-gray-300 rounded-lg p-2 focus:border-2 focus:border-blue-500 focus:outline-none"
           />
         </div>
-
         <div className="flex justify-end mt-4 space-x-2">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -68,16 +66,17 @@ const AllApproved = ({ approvedLeaves }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [loading, setLoading] = useState(false); // Set loading to false
+  const [loading, setLoading] = useState(true); // Set loading to true initially
   const [error, setError] = useState(null);
+  const [leaves, setLeaves] = useState([]);
 
   const resetDates = () => {
     setStartDate(null);
     setEndDate(null);
   };
 
-  // Remove the fetch call since approvedLeaves are passed as props
-  const filteredLeaves = approvedLeaves.filter((leave) => {
+  // Filter leaves based on search name and date range
+  const filteredLeaves = leaves.filter((leave) => {
     const isNameMatch = leave.username.toLowerCase().includes(searchName.toLowerCase());
     const isDateMatch =
       (!startDate || new Date(leave.sdate) >= startDate) &&
@@ -85,12 +84,18 @@ const AllApproved = ({ approvedLeaves }) => {
     return isNameMatch && isDateMatch;
   });
 
+  useEffect(() => {
+    const storedApprovedLeaves = JSON.parse(localStorage.getItem('approvedLeaves')) || [];
+    setLeaves(storedApprovedLeaves);
+    setLoading(false); // Set loading to false after fetching data
+  }, []);
+
   const handleCardClick = (leave) => {
     console.log("Leave clicked:", leave);
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Show loading state
   }
 
   if (error) {
