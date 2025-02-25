@@ -83,7 +83,7 @@ const Rejected = () => {
 
   // Filter leaves based on search name and date range
   const filteredLeaves = rejectedLeaves.filter((leave) => {
-    const isNameMatch = leave.username.toLowerCase().includes(searchName.toLowerCase());
+    const isNameMatch = leave.name && leave.name.toLowerCase().includes(searchName.toLowerCase());
     const isDateMatch =
       (!startDate || new Date(leave.sdate) >= startDate) &&
       (!endDate || new Date(leave.edate) <= endDate);
@@ -167,7 +167,7 @@ const Rejected = () => {
                 </div>
                 <p className="text-sm text-gray-600">
                   <span className="font-medium">Total Days:</span>{" "}
-                  {leave.totalday}
+                  {leave.total_day}
                 </p>
                 <p className="text-sm text-gray-600">
                   <span className="font-medium">Start Time:</span>{" "}
@@ -183,11 +183,11 @@ const Rejected = () => {
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full">
-                      {leave.username.split(" ")[0][0]}
-                      {leave.username.split(" ")[1] ? leave.username.split(" ")[1][0] : ""}
+                      {leave.name ? leave.name.split(" ")[0][0] : ""}
+                      {leave.name && leave.name.split(" ")[1] ? leave.name.split(" ")[1][0] : ""}
                     </div>
                     <div className="ml-2 text-sm text-gray-600">
-                      <p>{leave.username}</p>
+                      <p>{leave.name || "Unknown"}</p>
                       <p className="text-xs text-gray-400">
                         Initiated: {leave.submitted_at || ""}
                       </p>
