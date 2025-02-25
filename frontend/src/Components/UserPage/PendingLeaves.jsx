@@ -425,7 +425,7 @@
 
 
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom"; 
+
 import DownNavbar from "./DownNavbar";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DatePicker from "react-datepicker";
@@ -436,7 +436,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import "./User.css";
 
 const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
-  const navigate = useNavigate(); 
+  // const navigate = useNavigate(); 
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [timeFilter, setTimeFilter] = useState("All Time");
   const [statusFilter, setStatusFilter] = useState("All Status");
@@ -503,12 +503,12 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
               setApprovedLeaves((prev) => [...prev, updatedLeave]);
               localStorage.setItem('approvedLeaves', JSON.stringify([...JSON.parse(localStorage.getItem('approvedLeaves') || '[]'), updatedLeave]));
               toast.success("Leave Approved Successfully!");
-              navigate('/approved'); // Navigate to approved page
+
             } else {
               setRejectedLeaves((prev) => [...prev, updatedLeave]);
               localStorage.setItem('rejectedLeaves', JSON.stringify([...JSON.parse(localStorage.getItem('rejectedLeaves') || '[]'), updatedLeave]));
               toast.success("Leave Rejected Successfully!");
-              navigate('/rejected'); // Navigate to rejected page
+
             }
 
             setLeaves((prevLeaves) =>
@@ -523,7 +523,7 @@ const PendingLeaves = ({ setApprovedLeaves, setRejectedLeaves }) => {
         }
       }
     },
-    [selectedLeave, setApprovedLeaves, setRejectedLeaves, navigate]
+    [selectedLeave, setApprovedLeaves, setRejectedLeaves]
   );
 
   const handleApprove = () => {
